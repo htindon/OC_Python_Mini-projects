@@ -19,6 +19,7 @@ window = pygame.display.set_mode((window_size, window_size))
 # Loading images
 menu_bg = pygame.image.load(menu_bg_img)
 window.blit(menu_bg, (0,0))
+game_bg = pygame.image.load(game_bg_img)
 
 icon = pygame.image.load(icon_img)
 pygame.display.set_icon(icon)
@@ -41,6 +42,13 @@ while main_loop_value:
             if event.type == QUIT:
                 menu_loop_value = 0
                 main_loop_value = 0
+            if event.type == KEYDOWN:
+                if event.key == K_F1:
+                    menu_loop_value = 0
+                    game_loop_value = 1
+                if event.key == K_F2:
+                    menu_loop_value = 0
+                    game_loop_value = 1
         
         window.blit(menu_bg, (0,0))
         pygame.display.flip()
@@ -48,4 +56,12 @@ while main_loop_value:
     # Game loop
     while game_loop_value == 1:
         pygame.time.Clock().tick(30)
+        for event in pygame.event.get():
+            if event.type == QUIT:
+                game_loop_value = 0
+                main_loop_value = 1
+                menu_loop_value = 1
+        window.blit(game_bg, (0,0))
+        pygame.display.flip()
+
     
