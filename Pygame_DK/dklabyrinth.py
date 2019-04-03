@@ -28,19 +28,24 @@ pygame.display.flip()
 
 '''
 This is the main loop. Upon leaving the menu, the player enters the game loop, upon living the game, the player re-enters the menu loop etc.
+Loops are refreshed every 30 frames
 '''
-value = 1
+main_loop_value = 1
 menu_loop_value = 1
 game_loop_value = 0
-while value:
-    for event in pygame.event.get():
-        if event.type == QUIT:
-            value = 0
+while main_loop_value:
     # Menu loop
     while menu_loop_value:
+        pygame.time.Clock().tick(30)
+        for event in pygame.event.get():
+            if event.type == QUIT:
+                menu_loop_value = 0
+                main_loop_value = 0
+        
         window.blit(menu_bg, (0,0))
         pygame.display.flip()
 
     # Game loop
-    
+    while game_loop_value == 1:
+        pygame.time.Clock().tick(30)
     
